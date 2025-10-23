@@ -1,76 +1,70 @@
 package com.hotelaria.hotelaria.infra.banco;
 
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.orm.jpa.EntityManagerFactoryBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment; // Importante!
+import org.springframework.core.env.Environment;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import javax.sql.DataSource;
 
 @Configuration
-public class CriaBancoDeDados implements ApplicationRunner {
+public class CriaBancoDeDados {
 
     private final JdbcTemplate jdbcTemplate;
-    private final String databaseName; // Agora é 'final' e inicializado no construtor
-
-    // O nome da propriedade que você está usando
+    private final String schemaName;
     private static final String SCHEMA_PROPERTY = "spring.jpa.properties.hibernate.default_schema";
 
-    // ----------------------------------------------------------------------
-    // NOVO CONSTRUTOR
-    // ----------------------------------------------------------------------
     public CriaBancoDeDados(DataSource dataSource, Environment env) {
-        // Inicializa o JdbcTemplate
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-
-        // Obtém a propriedade do Environment, usando "hotel" como valor padrão
-        this.databaseName = env.getProperty(SCHEMA_PROPERTY, "hotel");
-
-        // Log para garantir que você pegou o nome certo
-        System.out.println("Configurando banco de dados alvo: " + this.databaseName);
-    }
-    // ----------------------------------------------------------------------
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        createDatabaseIfNotExist();
+        this.schemaName = env.getProperty(SCHEMA_PROPERTY, "hotel");
+        System.out.println("Configuração de Schema Alvo: " + this.schemaName);
     }
 
-    // O resto do método createDatabaseIfNotExist() permanece o mesmo.
-    private void createDatabaseIfNotExist() {
-        // ... sua lógica original ...
-        String sql = "SELECT 1 FROM pg_database WHERE datname = ?";
+    // REMOVA: public void run(ApplicationArguments args) throws Exception {...}
+
+    @Bean
+    public EntityManagerFactoryBuilderCustomizer customizeEntityManagerFactoryBuilder() {
+        // Esta função garante que createSchemaIfNotExist() seja chamado antes
+        // da construção da EntityManagerFactory (onde o ddl-auto é executado).
+        createSchemaIfNotExist();
+
+        return (builder) -> {
+            // Não é necessário adicionar mais configurações, a chamada acima basta.
+        };
+    }
+
+    private void createSchemaIfNotExist() {
+        System.out.println("Iniciando verificação/criação do Schema: " + this.schemaName);
+        String sql = "SELECT schema_name FROM information_schema.schemata WHERE schema_name = ?";
+
         try {
-            // Verifica se o banco de dados existe
             boolean exists = false;
             try {
-                Integer count = jdbcTemplate.queryForObject(sql, Integer.class, databaseName);
-                if (count != null && count > 0) {
-                    exists = true;
-                }
-            } catch (Exception e) {
-                // ...
+                jdbcTemplate.queryForObject(sql, String.class, schemaName);
+                exists = true;
+            } catch (EmptyResultDataAccessException e) {
+                // Schema não encontrado, vamos criar
             }
 
             if (!exists) {
                 try {
-                    // Se não existir, tenta criar
-                    jdbcTemplate.execute("CREATE DATABASE " + databaseName);
-                    System.out.println("Banco de dados '" + databaseName + "' criado com sucesso!");
-                } catch (org.springframework.dao.DataAccessException dataAccessException) {
-                    // Captura a exceção caso o banco já exista (e ignora)
-                    if (dataAccessException.getMessage().contains("already exists")) {
-                        System.out.println("Banco de dados '" + databaseName + "' já existe (exceção ignorada).");
+                    jdbcTemplate.execute("CREATE SCHEMA " + schemaName);
+                    System.out.println("Schema '" + schemaName + "' criado com sucesso! ✅");
+                } catch (DataAccessException dataAccessException) {
+                    if (dataAccessException.getMessage() != null && dataAccessException.getMessage().contains("already exists")) {
+                        System.out.println("Schema '" + schemaName + "' já existe (exceção ignorada).");
                     } else {
                         throw dataAccessException;
                     }
                 }
             } else {
-                System.out.println("Banco de dados '" + databaseName + "' já existe (verificação inicial).");
+                System.out.println("Schema '" + schemaName + "' já existe (verificação inicial).");
             }
         } catch (Exception e) {
-            System.err.println("Erro fatal na inicialização do banco de dados: " + e.getMessage());
+            System.err.println("Erro fatal na inicialização do schema: " + e.getMessage());
+            throw new RuntimeException("Falha ao configurar o schema PostgreSQL.", e);
         }
     }
 }

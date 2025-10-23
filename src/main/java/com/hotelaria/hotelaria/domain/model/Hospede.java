@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @EqualsAndHashCode
 @Entity
@@ -27,4 +30,6 @@ public class Hospede {
 
     private String telefone;
 
+    @OneToMany(mappedBy = "hospede")
+    private List<CheckIn>checkins= new ArrayList<>();
 }

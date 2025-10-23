@@ -41,11 +41,24 @@ public class HospedeController {
         return hospedeDTOAssembler.toCollectionModel(todosHospedes);
     }
 
-    @GetMapping("/{hospedeId}")
-    public HospedeDTO buscar(@PathVariable Long hospedeId) {
-        Hospede hospede =hospedeService.buscarOuFalhar(hospedeId);
-        return hospedeDTOAssembler.toModel(hospede);
+    @GetMapping("/fora-do-hotel")
+    public List<HospedeDTO> listarHospedesForaDoHotel(){
+        List<Hospede> hospedesForadoHotel = hospedeRepository.findHospedesAtualmenteForaDoHotel();
+        return hospedeDTOAssembler.toCollectionModel(hospedesForadoHotel);
     }
+
+    @GetMapping("/estao-no-hotel")
+    public List<HospedeDTO> listarHospedesNoHotel(){
+        List<Hospede> hospedesForadoHotel = hospedeRepository.findHospedesNoHotel();
+        return hospedeDTOAssembler.toCollectionModel(hospedesForadoHotel);
+    }
+
+
+//    @GetMapping("/{hospedeId}")
+//    public HospedeDTO buscar(@PathVariable Long hospedeId) {
+//        Hospede hospede =hospedeService.buscarOuFalhar(hospedeId);
+//        return hospedeDTOAssembler.toModel(hospede);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

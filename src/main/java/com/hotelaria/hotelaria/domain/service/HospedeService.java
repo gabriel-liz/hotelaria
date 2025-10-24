@@ -2,12 +2,16 @@ package com.hotelaria.hotelaria.domain.service;
 
 import com.hotelaria.hotelaria.domain.exception.EntidadeNaoEncontradaException;
 import com.hotelaria.hotelaria.domain.exception.HospedeNaoEncontradoException;
+import com.hotelaria.hotelaria.domain.exception.NegocioException;
 import com.hotelaria.hotelaria.domain.model.Hospede;
 import com.hotelaria.hotelaria.domain.repository.HospedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class HospedeService {
@@ -17,7 +21,24 @@ public class HospedeService {
 
     @Transactional
     public Hospede salvar(Hospede hospede){
-        return hospedeRepository.save(hospede);
+
+        Optional<Hospede> existentePorDocumento = hospedeRepository.findByDocumento(hospede.getDocumento());
+        if (existentePorDocumento.isPresent() && !existentePorDocumento.get().getId().equals(hospede.getId())) {
+            throw new NegocioException("Já existe um hóspede cadastrado com o mesmo documento.");
+        }
+
+        if (hospede.getTelefone() != null) {
+            Optional<Hospede> existentePorTelefone = hospedeRepository.findByTelefone(hospede.getTelefone());
+            if (existentePorTelefone.isPresent() && !existentePorTelefone.get().getId().equals(hospede.getId())) {
+                throw new NegocioException("Já existe um hóspede cadastrado com o mesmo telefone.");
+            }
+        }
+
+        try{
+            return hospedeRepository.save(hospede);
+        } catch (DataIntegrityViolationException e){
+            throw new NegocioException("Não foi possível salvar o hóspede. Documento ou telefone já cadastrado.");
+        }
     }
 
     @Transactional

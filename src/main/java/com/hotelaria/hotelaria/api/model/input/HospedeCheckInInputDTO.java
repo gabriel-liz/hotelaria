@@ -6,8 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class HospedeIdInputDTO {
+public class HospedeCheckInInputDTO {
 
-    @NotNull
-    private Long id;
+    private String nome;
+    private String documento;
+    private String telefone;
 }

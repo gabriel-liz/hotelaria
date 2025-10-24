@@ -11,7 +11,7 @@ public class CheckInInputDTO {
 
     @Valid
     @NotNull
-    private HospedeIdInputDTO hospede;
+    private HospedeCheckInInputDTO hospede;
 
     @NotNull
     private Boolean adicionalVeiculo;

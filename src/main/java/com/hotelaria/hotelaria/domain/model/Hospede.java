@@ -25,9 +25,10 @@ public class Hospede {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String documento;
 
+    @Column(nullable = false, unique = true)
     private String telefone;
 
     @OneToMany(mappedBy = "hospede")

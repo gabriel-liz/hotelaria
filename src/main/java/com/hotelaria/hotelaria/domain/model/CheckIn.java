@@ -33,11 +33,11 @@ public class CheckIn {
     private boolean adicionalVeiculo;
 
     public void checkOut() {
-        this.dataSaida = OffsetDateTime.now(ZoneOffset.UTC);
+        this.dataSaida = OffsetDateTime.now();
     }
 
     public void checkIn() {
-        this.dataEntrada = OffsetDateTime.now(ZoneOffset.UTC);
+        this.dataEntrada = OffsetDateTime.now();
     }
 
 }

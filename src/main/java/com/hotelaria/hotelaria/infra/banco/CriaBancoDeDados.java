@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import javax.sql.DataSource;
 
 @Configuration
@@ -22,36 +23,27 @@ public class CriaBancoDeDados {
         System.out.println("Configuração de Schema Alvo: " + this.schemaName);
     }
 
-    // REMOVA: public void run(ApplicationArguments args) throws Exception {...}
-
     @Bean
     public EntityManagerFactoryBuilderCustomizer customizeEntityManagerFactoryBuilder() {
-        // Esta função garante que createSchemaIfNotExist() seja chamado antes
-        // da construção da EntityManagerFactory (onde o ddl-auto é executado).
         createSchemaIfNotExist();
-
         return (builder) -> {
-            // Não é necessário adicionar mais configurações, a chamada acima basta.
         };
     }
 
     private void createSchemaIfNotExist() {
         System.out.println("Iniciando verificação/criação do Schema: " + this.schemaName);
         String sql = "SELECT schema_name FROM information_schema.schemata WHERE schema_name = ?";
-
         try {
             boolean exists = false;
             try {
                 jdbcTemplate.queryForObject(sql, String.class, schemaName);
                 exists = true;
             } catch (EmptyResultDataAccessException e) {
-                // Schema não encontrado, vamos criar
             }
-
             if (!exists) {
                 try {
                     jdbcTemplate.execute("CREATE SCHEMA " + schemaName);
-                    System.out.println("Schema '" + schemaName + "' criado com sucesso! ✅");
+                    System.out.println("Schema '" + schemaName + "' criado com sucesso!");
                 } catch (DataAccessException dataAccessException) {
                     if (dataAccessException.getMessage() != null && dataAccessException.getMessage().contains("already exists")) {
                         System.out.println("Schema '" + schemaName + "' já existe (exceção ignorada).");

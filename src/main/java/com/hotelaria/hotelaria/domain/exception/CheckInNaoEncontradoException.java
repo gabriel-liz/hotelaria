@@ -1,6 +1,6 @@
 package com.hotelaria.hotelaria.domain.exception;
 
-public class CheckInNaoEncontradoException extends EntidadeNaoEncontradaException{
+public class CheckInNaoEncontradoException extends EntidadeNaoEncontradaException {
 
     private static final long serialVersionUID = 1L;
 

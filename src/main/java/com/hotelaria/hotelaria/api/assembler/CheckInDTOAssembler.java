@@ -19,7 +19,7 @@ public class CheckInDTOAssembler {
         return modelMapper.map(checkIn, CheckInDTO.class);
     }
 
-    public List<CheckInDTO> toCollectionModel(List<CheckIn> checkIns){
+    public List<CheckInDTO> toCollectionModel(List<CheckIn> checkIns) {
         return checkIns.stream()
                 .map(checkIn -> toModel(checkIn))
                 .collect(Collectors.toList());

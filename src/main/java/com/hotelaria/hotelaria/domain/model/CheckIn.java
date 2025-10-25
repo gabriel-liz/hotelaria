@@ -1,19 +1,22 @@
 package com.hotelaria.hotelaria.domain.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 @Entity
 public class CheckIn {
 
     @EqualsAndHashCode.Include
+    @ToString.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +25,6 @@ public class CheckIn {
     @JoinColumn(name = "hospede_id", nullable = false)
     private Hospede hospede;
 
-    @CreationTimestamp
     @Column(nullable = false)
     private OffsetDateTime dataEntrada;
 
@@ -30,8 +32,12 @@ public class CheckIn {
 
     private boolean adicionalVeiculo;
 
-    public void checkOut(){
-        this.dataSaida = OffsetDateTime.now();
+    public void checkOut() {
+        this.dataSaida = OffsetDateTime.now(ZoneOffset.UTC);
+    }
+
+    public void checkIn() {
+        this.dataEntrada = OffsetDateTime.now(ZoneOffset.UTC);
     }
 
 }

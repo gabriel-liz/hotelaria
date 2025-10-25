@@ -35,7 +35,9 @@ public interface HospedeRepository extends JpaRepository<Hospede, Long> {
     );
 
     Optional<Hospede> findByDocumento(String documento);
+
     Optional<Hospede> findByTelefone(String telefone);
+
     List<Hospede> findByNomeContainingIgnoreCase(String nome);
 
 }

@@ -33,34 +33,33 @@ public class CheckInController {
     private CheckInInputDTODisassembler checkInInputDTODisassembler;
 
     @GetMapping
-    public List<CheckInDTO> listar(){
+    public List<CheckInDTO> listar() {
         List<CheckIn> todosCheckins = checkInRepository.findAll();
         return checkInDTOAssembler.toCollectionModel(todosCheckins);
     }
 
-    public CheckInDTO buscar(@PathVariable Long checkInId){
+    @GetMapping("/{checkInId}")
+    public CheckInDTO buscar(@PathVariable Long checkInId) {
         CheckIn checkIn = checkInService.buscarOuFalhar(checkInId);
         return checkInDTOAssembler.toModel(checkIn);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CheckInDTO adicionar(@RequestBody @Valid CheckInInputDTO checkInInputDTO){
-        try{
+    public CheckInDTO adicionar(@RequestBody @Valid CheckInInputDTO checkInInputDTO) {
+        try {
             CheckIn checkIn = checkInInputDTODisassembler.toDomainObject(checkInInputDTO);
             checkIn = checkInService.salvar(checkIn);
             return checkInDTOAssembler.toModel(checkIn);
-        } catch (CheckInNaoEncontradoException e){
+        } catch (CheckInNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
 
     @PutMapping("/{checkInId}/check-out")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void checkOut(@PathVariable Long checkInId){
+    public void checkOut(@PathVariable Long checkInId) {
         checkInService.checkOut(checkInId);
     }
-
-
 
 }

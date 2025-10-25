@@ -1,6 +1,6 @@
 package com.hotelaria.hotelaria.domain.exception;
 
-public class HospedeNaoEncontradoException extends EntidadeNaoEncontradaException{
+public class HospedeNaoEncontradoException extends EntidadeNaoEncontradaException {
 
     private static final long serialVersionUID = 1L;
 
@@ -9,6 +9,6 @@ public class HospedeNaoEncontradoException extends EntidadeNaoEncontradaExceptio
     }
 
     public HospedeNaoEncontradoException(Long hospedeId) {
-        this(String.format("Não existe um cadastro de hospede com código %d", hospedeId));
+        this(String.format("Não existe cadastro de hóspede com código %d", hospedeId));
     }
 }

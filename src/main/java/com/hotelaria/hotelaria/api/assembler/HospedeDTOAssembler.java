@@ -19,7 +19,7 @@ public class HospedeDTOAssembler {
         return modelMapper.map(hospede, HospedeDTO.class);
     }
 
-    public List<HospedeDTO> toCollectionModel(List<Hospede> hospedes){
+    public List<HospedeDTO> toCollectionModel(List<Hospede> hospedes) {
         return hospedes.stream()
                 .map(hospede -> toModel(hospede))
                 .collect(Collectors.toList());

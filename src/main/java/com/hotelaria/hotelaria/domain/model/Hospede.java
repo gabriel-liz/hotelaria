@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,4 +43,7 @@ public class Hospede {
     private BigDecimal valorTotalGasto;
 
     private BigDecimal valorUltimaHospedagem;
+
+    @Column(nullable = false)
+    private OffsetDateTime dataCadastro = OffsetDateTime.now();
 }

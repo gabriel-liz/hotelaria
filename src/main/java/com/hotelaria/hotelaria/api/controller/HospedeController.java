@@ -83,7 +83,6 @@ public class HospedeController {
     public HospedeDTO atualizar(@PathVariable Long hospedeId, @RequestBody @Valid HospedeInputDTO hospedeInputDTO) {
         try {
             Hospede hospedeAtual = hospedeService.buscarOuFalhar(hospedeId);
-
             hospedeInputDTODisassembler.copyToDomainObject(hospedeInputDTO, hospedeAtual);
             hospedeAtual = hospedeService.salvar(hospedeAtual);
             return hospedeDTOAssembler.toModel(hospedeAtual);

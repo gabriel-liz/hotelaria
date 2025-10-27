@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class HospedesDetalheValoresDTO {
+public class HospedesValoresDTO {
     private String nome;
     private BigDecimal valorTotalGasto;
     private BigDecimal valorUltimaHospedagem;

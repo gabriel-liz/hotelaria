@@ -6,7 +6,7 @@ import com.hotelaria.hotelaria.api.assembler.HospedeDetalheValoresDTOAssembler;
 import com.hotelaria.hotelaria.api.assembler.HospedeInputDTODisassembler;
 import com.hotelaria.hotelaria.api.controller.HospedeController;
 import com.hotelaria.hotelaria.api.model.HospedeDTO;
-import com.hotelaria.hotelaria.api.model.HospedesDetalheValoresDTO;
+import com.hotelaria.hotelaria.api.model.HospedesValoresDTO;
 import com.hotelaria.hotelaria.api.model.input.HospedeInputDTO;
 import com.hotelaria.hotelaria.domain.model.Hospede;
 import com.hotelaria.hotelaria.domain.repository.HospedeRepository;
@@ -88,7 +88,7 @@ class HospedeControllerTest {
                 BigDecimal.valueOf(500), BigDecimal.valueOf(200)
         );
 
-        HospedesDetalheValoresDTO resposta = new HospedesDetalheValoresDTO();
+        HospedesValoresDTO resposta = new HospedesValoresDTO();
         resposta.setNome("João");
         resposta.setValorTotalGasto(BigDecimal.valueOf(500));
         resposta.setValorUltimaHospedagem(BigDecimal.valueOf(200));

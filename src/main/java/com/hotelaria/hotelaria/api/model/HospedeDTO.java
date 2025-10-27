@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class HospedeDTO {
 
-    //private Long id;
+    private Long id;
     private String nome;
     private String documento;
     private String telefone;

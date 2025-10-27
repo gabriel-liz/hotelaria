@@ -1,6 +1,6 @@
 package com.hotelaria.hotelaria.api.assembler;
 
-import com.hotelaria.hotelaria.api.model.HospedesDetalheValoresDTO;
+import com.hotelaria.hotelaria.api.model.HospedesValoresDTO;
 import com.hotelaria.hotelaria.domain.model.Hospede;
 import com.hotelaria.hotelaria.domain.service.PagamentoService.ValoresAgregadosDTO;
 import org.modelmapper.ModelMapper;
@@ -16,18 +16,18 @@ public class HospedeDetalheValoresDTOAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public HospedesDetalheValoresDTO toModel(Hospede hospede) {
-        return modelMapper.map(hospede, HospedesDetalheValoresDTO.class);
+    public HospedesValoresDTO toModel(Hospede hospede) {
+        return modelMapper.map(hospede, HospedesValoresDTO.class);
     }
 
-    public HospedesDetalheValoresDTO toModelComAgregados(Hospede hospede, ValoresAgregadosDTO agregados) {
-        HospedesDetalheValoresDTO dto = modelMapper.map(hospede, HospedesDetalheValoresDTO.class);
+    public HospedesValoresDTO toModelComAgregados(Hospede hospede, ValoresAgregadosDTO agregados) {
+        HospedesValoresDTO dto = modelMapper.map(hospede, HospedesValoresDTO.class);
         dto.setValorTotalGasto(agregados.valorTotalGasto);
         dto.setValorUltimaHospedagem(agregados.valorUltimaHospedagem);
         return dto;
     }
 
-    public List<HospedesDetalheValoresDTO> toCollectionModel(List<Hospede> hospedes) {
+    public List<HospedesValoresDTO> toCollectionModel(List<Hospede> hospedes) {
         return hospedes.stream()
                 .map(this::toModel)
                 .collect(Collectors.toList());

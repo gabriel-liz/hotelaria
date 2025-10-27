@@ -4,7 +4,7 @@ import com.hotelaria.hotelaria.api.assembler.HospedeDTOAssembler;
 import com.hotelaria.hotelaria.api.assembler.HospedeDetalheValoresDTOAssembler;
 import com.hotelaria.hotelaria.api.assembler.HospedeInputDTODisassembler;
 import com.hotelaria.hotelaria.api.model.HospedeDTO;
-import com.hotelaria.hotelaria.api.model.HospedesDetalheValoresDTO;
+import com.hotelaria.hotelaria.api.model.HospedesValoresDTO;
 import com.hotelaria.hotelaria.api.model.input.HospedeInputDTO;
 import com.hotelaria.hotelaria.domain.exception.HospedeNaoEncontradoException;
 import com.hotelaria.hotelaria.domain.exception.NegocioException;
@@ -60,11 +60,17 @@ public class HospedeController {
         return hospedeDTOAssembler.toCollectionModel(hospedesForadoHotel);
     }
 
-    @GetMapping("/{hospedeId}")
-    public HospedesDetalheValoresDTO buscar(@PathVariable Long hospedeId) {
+    @GetMapping("/valores/{hospedeId}")
+    public HospedesValoresDTO buscarValores(@PathVariable Long hospedeId) {
         Hospede hospede = hospedeService.buscarOuFalhar(hospedeId);
         PagamentoService.ValoresAgregadosDTO agregados = pagamentoService.calcularValoresAgregados(hospedeId);
         return hospedeDetalheValoresDTOAssembler.toModelComAgregados(hospede, agregados);
+    }
+
+    @GetMapping("/{hospedeId}")
+    public HospedeDTO buscar(@PathVariable Long hospedeId){
+        Hospede hospede = hospedeService.buscarOuFalhar(hospedeId);
+        return hospedeDTOAssembler.toModel(hospede);
     }
 
     @PostMapping

@@ -19,6 +19,8 @@ cd hotelaria
 
 ## Para rodar o projeto direto no maven
 
+docker-compose up -d
+
 mvn spring-boot:run
 
 ## Para rodar os testes:

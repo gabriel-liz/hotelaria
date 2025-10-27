@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -38,6 +39,14 @@ public class CheckIn {
 
     public void checkIn() {
         this.dataEntrada = OffsetDateTime.now();
+    }
+
+    public Pagamento gerarPagamento(BigDecimal valorDevido) {
+        Pagamento pagamento = new Pagamento();
+        pagamento.setHospede(this.getHospede());
+        pagamento.setCheckIn(this);
+        pagamento.pagar(valorDevido);
+        return pagamento;
     }
 
 }

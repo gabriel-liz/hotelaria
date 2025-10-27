@@ -117,11 +117,8 @@ public class CheckInService {
         }
         checkIn.checkOut();
         BigDecimal valorDevido = calculoHospedagemService.calcularValor(checkIn);
-        Pagamento novoPagamento = new Pagamento();
-        novoPagamento.setValorPago(valorDevido);
-        novoPagamento.setHospede(checkIn.getHospede());
-        novoPagamento.setCheckIn(checkIn);
-        pagamentoRepository.save(novoPagamento);
+        Pagamento pagamento = checkIn.gerarPagamento(valorDevido);
+        pagamentoRepository.save(pagamento);
         checkInRepository.save(checkIn);
     }
 }

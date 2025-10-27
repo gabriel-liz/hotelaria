@@ -1,5 +1,6 @@
 package com.hotelaria.hotelaria.domain.model;
 
+import com.hotelaria.hotelaria.domain.exception.NegocioException;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,4 +30,13 @@ public class Pagamento {
     @OneToOne
     @JoinColumn(name = "checkin_id", unique = true)
     private CheckIn checkIn;
+
+    public void pagar(BigDecimal valor) {
+        if (this.valorPago != null) {
+            throw new NegocioException("O pagamento já foi realizado.");
+        }
+
+        this.valorPago = valor;
+        this.dataPagamento = OffsetDateTime.now();
+    }
 }

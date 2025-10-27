@@ -42,3 +42,5 @@ Password: hotel
 Documentação Swagger: http://localhost:8080/swagger-ui/index.html#
 
 Documentação em JSON: http://localhost:8080/v3/api-docs
+
+Coleção com os end-Points no Postman no arquivo: **Hotelaria.postman_collection**

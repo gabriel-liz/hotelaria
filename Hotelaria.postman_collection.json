@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "8909b50c-ec6c-43d4-842e-9ba95426e8e9",
+		"name": "Hotelaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2195237",
+		"_collection_link": "https://solar-zodiac-189893.postman.co/workspace/teste~96f72e14-151f-4c03-a57a-a6fec8367a3d/collection/2195237-8909b50c-ec6c-43d4-842e-9ba95426e8e9?action=share&source=collection_link&creator=2195237"
+	},
+	"item": [
+		{
+			"name": "Hospede",
+			"item": [
+				{
+					"name": "Incluir Hospede",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"nome\": \"Gabriel\",\r\n        \"documento\": \"00011122233\",\r\n        \"telefone\": \"4799996655\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/hospedes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Hospede",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"Gabriel Liz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/hospedes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Todos Hospedes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Hospede",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Valores Hospede",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes/valores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"valores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Dados Hospede",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscas Hospedes fora do Hotel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes/fora-do-hotel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"fora-do-hotel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscas Hospedes que estão no Hotel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/hospedes/estao-no-hotel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"estao-no-hotel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check-In",
+			"item": [
+				{
+					"name": "Buscar Check-Ins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/check-ins",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"check-ins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fazer Check-In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hospede\": {\r\n       \"telefone\": \"4799996655\"\r\n    },\r\n    \"adicionalVeiculo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/check-ins",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"check-ins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fazer Check-Out",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/check-ins/1/check-out",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"check-ins",
+								"1",
+								"check-out"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testes Requests Incorretas",
+			"item": [
+				{
+					"name": "Violação de integridade",
+					"item": [
+						{
+							"name": "Incluir Hospede",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"nome\": \"Gabriel\",\r\n        \"documento\": \"00011122233\",\r\n        \"telefone\": \"4799996655\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/hospedes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"hospedes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fazer Check-In",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hospede\": {\r\n       \"telefone\": \"4799996655\"\r\n    },\r\n    \"adicionalVeiculo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/check-ins",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"check-ins"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Hospede Associado - Informar Id do hospede que fez check-in",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/hospedes/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"hospedes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EndPoint invalido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/invalido",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invalido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro inexistente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"Gabriel Liz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/hospedes/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hospedes",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Informando um atributo invalido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hospede\": {\r\n       \"telefone\": \"4799996655\",\r\n       \"idade\": \"31\"\r\n    },\r\n    \"adicionalVeiculo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/check-ins",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"check-ins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

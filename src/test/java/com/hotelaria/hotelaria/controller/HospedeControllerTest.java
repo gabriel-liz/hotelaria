@@ -98,7 +98,7 @@ class HospedeControllerTest {
         when(hospedeDetalheValoresDTOAssembler.toModelComAgregados(hospede, agregados))
                 .thenReturn(resposta);
 
-        mockMvc.perform(get("/hospedes/1"))
+        mockMvc.perform(get("/hospedes/valores/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.valorTotalGasto").value(500))
                 .andExpect(jsonPath("$.valorUltimaHospedagem").value(200));
